@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Marcos Henrique | Aula Exclusiva — Funil de AutoQualificação para Nutricionistas</title>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '{{SEU_PIXEL_ID}}');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id={{SEU_PIXEL_ID}}&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+<!-- Wistia Player -->
+<script src="https://fast.wistia.com/player.js" async></script>
+<script src="https://fast.wistia.com/embed/3m1v2y4a7b.js" async type="module"></script>
+<style>wistia-player[media-id='3m1v2y4a7b']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/3m1v2y4a7b/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --bg-black:#070b0e;
+    --bg-card:#0f171c;
+    --green:#25d366;
+    --green-hover:#1ebe5a;
+    --green-subtle:rgba(37,211,102,.12);
+    --green-border:rgba(37,211,102,.25);
+    --cream:#f4f6f8;
+    --white:#ffffff;
+    --ink:#111b21;
+    --muted:rgba(255,255,255,.85);
+    --muted-ink:#54656f;
+  }
+
+  /* ══════ TRAVA DE ROLAGEM ══════ */
+  html,body{
+    height:100%;
+    overflow:hidden;
+    overscroll-behavior:none;
+    position:fixed;
+    inset:0;
+    width:100%;
+  }
+  body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--bg-black);touch-action:pan-y;}
+  h1,h2,h3,h4{font-family:'Fraunces',serif;font-weight:600;}
+  .container{max-width:1080px;margin:0 auto;padding:0 24px;height:100%;display:flex;flex-direction:column;}
+  img{max-width:100%;display:block;}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    background:var(--green);color:#fff;font-weight:900;font-size:15px;
+    text-decoration:none;border-radius:40px;padding:14px 26px;
+    transition:transform .15s,background .15s;border:none;cursor:pointer;
+    box-shadow:0 8px 24px rgba(37,211,102,.25);
+  }
+  .btn:hover{background:var(--green-hover);transform:translateY(-2px);}
+  .btn-full{width:100%;}
+
+  /* CHAMA-ATENÇÃO: tremida leve a cada 10 segundos */
+  @keyframes attentionShake{
+    0%, 90%{transform:translateY(0) rotate(0deg);}
+    91%{transform:translateY(-2px) rotate(-1.2deg);}
+    92%{transform:translateY(0) rotate(1.2deg);}
+    93%{transform:translateY(-2px) rotate(-1.2deg);}
+    94%{transform:translateY(0) rotate(1deg);}
+    95%{transform:translateY(-1px) rotate(-0.6deg);}
+    96%, 100%{transform:translateY(0) rotate(0deg);}
+  }
+  .btn-attention{
+    animation:attentionShake 10s ease-in-out infinite;
+    transform-origin:center;
+  }
+  .btn-attention:hover{
+    animation-play-state:paused;
+  }
+
+  /* ══════ HERO (única dobra da página) ══════ */
+  .hero{
+    position:relative;
+    height:100vh;
+    height:100svh;
+    height:100dvh;
+    background:radial-gradient(circle at 78% 24%, #111a20 0%, var(--bg-black) 65%);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    padding-top:max(12px, env(safe-area-inset-top));
+    padding-bottom:max(12px, env(safe-area-inset-bottom));
+  }
+  .hero-inner{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:flex-start;
+    gap:14px;
+    min-height:0;
+  }
+  .hero-top{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    width:100%;
+    flex-shrink:0;
+  }
+  .hero-body{
+    flex:0 0 auto;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items:flex-start;
+  }
+
+  /* CAIXINHA DO NOME */
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:14px;
+    background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.18);
+    border-radius:44px;padding:12px 26px 12px 12px;margin-bottom:14px;
+    box-shadow:0 4px 16px rgba(0,0,0,.2);
+  }
+  .hero-badge img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#18252d;}
+  .hero-badge span{font-size:16.5px;font-weight:700;color:#fff;letter-spacing:.02em;}
+  .hero-badge span em{display:block;font-style:normal;font-weight:500;color:var(--green);font-size:13px;letter-spacing:.02em;margin-top:2px;}
+
+  /* Ícones e Métricas de Autoridade */
+  .authority-bar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    width:100%;
+    max-width:540px;
+    margin-bottom:10px;
+  }
+  .auth-item{
+    flex:1;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:22px;
+    padding:8px 10px;
+    font-size:12px;
+    font-weight:700;
+    color:#fff;
+    white-space:nowrap;
+  }
+  .auth-item svg{width:14px;height:14px;fill:var(--green);flex-shrink:0;}
+
+  /* CAIXINHA DA AULA */
+  .headline-box{
+    position:relative;
+    width:100%;
+    max-width:540px;
+    background:var(--green-subtle);
+    border:1.5px solid var(--green-border);
+    border-radius:18px;
+    padding:20px 24px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-bottom:12px;
+    box-shadow:0 6px 20px rgba(37,211,102,.08);
+  }
+  .live-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:#ffffff;
+    border:1px solid rgba(0,0,0,.08);
+    border-radius:20px;
+    padding:6px 14px;
+    font-size:11.5px;
+    font-weight:800;
+    color:#111b21;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    width:fit-content;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+  }
+  .live-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 10px var(--green);
+    animation:pulse 1.4s infinite;
+  }
+
+  .reveal-box{
+    display:inline-block;
+    background:#ffffff;
+    border-radius:10px;
+    padding:8px 14px;
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    font-weight:700;
+    color:var(--ink);
+    box-shadow:0 2px 8px rgba(0,0,0,.12);
+    width:fit-content;
+  }
+
+  .hero h1{
+    font-family:'Inter',sans-serif;
+    font-size:clamp(16px,3vw,19px);
+    line-height:1.45;
+    color:#fff;
+    font-weight:600;
+    letter-spacing:-.005em;
+    margin:0;
+    text-wrap:balance;
+  }
+
+  /* Textos intermediários */
+  .hero-lead{
+    font-size:15px;
+    font-weight:500;
+    color:rgba(255,255,255,.95);
+    max-width:560px;
+    line-height:1.45;
+    letter-spacing:.01em;
+    margin-bottom:6px;
+  }
+  .hero-sub{
+    font-size:16px;
+    line-height:1.45;
+    color:rgba(255,255,255,.9);
+    max-width:560px;
+    letter-spacing:.01em;
+    margin-bottom:6px;
+  }
+  .hero-sub.highlight-box{
+    color:#ffffff;
+    font-weight:700;
+  }
+
+  /* Caixa do Botão */
+  .hero-cta-box{
+    background:var(--green-subtle);
+    border:1px solid var(--green-border);
+    border-radius:14px;
+    padding:10px 12px 12px;
+    width:100%;
+    max-width:540px;
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    flex-shrink:0;
+    margin-top:4px;
+  }
+  .hero-cta-wrap{width:100%;display:flex;flex-direction:column;align-items:center;}
+  .hero-urgency{
+    display:flex;align-items:center;justify-content:center;gap:6px;
+    font-size:11px;font-weight:700;color:#86efac;
+    margin-bottom:12px;
+    text-align:center;
+  }
+  .hero-urgency::before{content:"●";color:var(--green);font-size:8px;animation:pulse 1.4s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+  .foot-note{
+    position:absolute;bottom:8px;left:0;right:0;text-align:center;
+    font-size:10px;color:rgba(255,255,255,.5);padding:0 20px;
+  }
+
+  @media(max-width:480px){
+    .hero-badge{padding:9px 18px 9px 9px;}
+    .hero-badge img{width:42px;height:42px;}
+    .hero-badge span{font-size:14px;}
+    .hero-badge span em{font-size:11px;}
+    .headline-box{padding:16px 18px;}
+    .hero h1{font-size:16px;line-height:1.4;}
+    .hero-lead{font-size:14px;line-height:1.4;margin-bottom:5px;}
+    .hero-sub{font-size:15px;line-height:1.4;margin-bottom:5px;}
+    .auth-item{font-size:10px;padding:6px 8px;}
+    .auth-item svg{width:11px;height:11px;}
+    .btn{font-size:14.5px;padding:13px 20px;}
+    .hero-cta-box{padding:9px 12px 11px;margin-top:4px;}
+  }
+
+  @media(max-height:800px){
+    .hero-badge{margin-bottom:8px;}
+    .headline-box{margin-bottom:6px;}
+    .hero-lead{margin-bottom:5px;}
+    .hero-sub{margin-bottom:5px;}
+    .hero-inner{gap:8px;}
+  }
+
+  @media(max-height:600px){
+    .authority-bar{display:none;}
+  }
+
+  /* ══════ QUIZ POPUP ══════ */
+  .quiz-overlay{
+    position:fixed;inset:0;z-index:10000;background:rgba(5,8,11,.88);
+    display:none;align-items:center;justify-content:center;padding:20px;
+    backdrop-filter:blur(4px);
+  }
+  .quiz-overlay.active{display:flex;}
+  .quiz-box{
+    background:var(--cream);border-radius:18px;width:100%;max-width:540px;
+    max-height:90vh;overflow-y:auto;position:relative;
+    box-shadow:0 24px 60px rgba(0,0,0,.6);
+    animation:quizIn .25s ease;
+    transition: all .25s ease;
+  }
+
+  /* CLASSE PARA MODO REELS / VERTICAL FULLSCREEN */
+  .quiz-box.reels-mode{
+    max-width: 440px;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100vh;
+    max-height: 100dvh;
+    border-radius: 0;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .quiz-box.reels-mode .quiz-head{
+    background: rgba(0,0,0,0.88);
+    backdrop-filter: blur(8px);
+  }
+  .quiz-box.reels-mode .quiz-body{
+    padding: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #000;
+    position: relative;
+  }
+
+  @keyframes quizIn{from{opacity:0;transform:translateY(14px) scale(.98);}to{opacity:1;transform:translateY(0) scale(1);}}
+  .quiz-head{
+    background:var(--bg-card);padding:18px 22px 16px;border-radius:18px 18px 0 0;
+    position:sticky;top:0;z-index:10;border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .quiz-close{
+    position:absolute;top:14px;right:16px;background:none;border:none;
+    color:rgba(255,255,255,.6);font-size:22px;cursor:pointer;line-height:1;
+    width:30px;height:30px;
+  }
+  .quiz-close:hover{color:#fff;}
+  .quiz-progress-track{width:100%;height:6px;background:rgba(255,255,255,.1);border-radius:6px;overflow:hidden;margin-top:6px;}
+  .quiz-progress-fill{height:100%;background:var(--green);border-radius:6px;transition:width .3s ease;width:0%;}
+  .quiz-notice{font-size:12.5px;font-weight:700;color:var(--green);margin-bottom:8px;}
+  .quiz-step-label{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
+  .quiz-body{padding:24px 20px 28px;}
+
+  /* PERGUNTA EM DESTAQUE ELEVADO (DESIGN OPTIMIZED) */
+  .quiz-question-box {
+    position:relative;
+    background: #ffffff;
+    border:1.5px solid rgba(37,211,102,.35);
+    border-left: 6px solid var(--green);
+    border-radius: 14px;
+    padding: 20px 22px 22px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 28px rgba(17,27,33,.10), 0 2px 6px rgba(37,211,102,.10);
+  }
+  .quiz-question-eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--green);
+    background:var(--green-subtle);
+    border-radius:20px;
+    padding:4px 12px;
+    margin-bottom:10px;
+  }
+  .quiz-question{
+    font-family:'Inter',sans-serif;
+    font-size:19.5px;
+    line-height:1.4;
+    color:var(--ink);
+    font-weight:800;
+    letter-spacing:-.01em;
+  }
+  @media(max-width:480px){
+    .quiz-question-box{padding:18px 18px 20px;}
+    .quiz-question{font-size:17.5px;}
+  }
+
+  .quiz-options{display:flex;flex-direction:column;gap:10px;}
+  .quiz-opt{
+    display:block;width:100%;text-align:left;background:#fff;border:1.5px solid #d1d7db;
+    border-radius:10px;padding:15px 18px;font-family:'Inter',sans-serif;font-size:14px;
+    font-weight:600;color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s,transform .1s;
+    line-height:1.4;
+  }
+  .quiz-opt:hover{border-color:var(--green);background:#f0fdf4;transform:translateY(-1px);}
+  .quiz-opt-multi{display:flex;align-items:center;gap:12px;}
+  .quiz-opt-check{
+    flex-shrink:0;width:20px;height:20px;border-radius:5px;border:1.5px solid #b4b3b9;
+    background:#fff;position:relative;transition:border-color .15s,background .15s;
+  }
+  .quiz-opt-multi.selected{border-color:var(--green);background:#f0fdf4;}
+  .quiz-opt-multi.selected .quiz-opt-check{background:var(--green);border-color:var(--green);}
+  .quiz-opt-multi.selected .quiz-opt-check::after{
+    content:"";position:absolute;left:6px;top:2px;width:5px;height:9px;
+    border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);
+  }
+  .quiz-input{
+    width:100%;border:1.5px solid #d1d7db;border-radius:10px;padding:13px 15px;
+    font-family:'Inter',sans-serif;font-size:14.5px;color:var(--ink);background:#fff;
+    margin-bottom:12px;outline:none;transition:border-color .15s;
+  }
+  .quiz-input:focus{border-color:var(--green);}
+  textarea.quiz-input{resize:vertical;min-height:80px;font-family:'Inter',sans-serif;}
+
+  /* CRONÔMETRO ESTILO NETFLIX */
+  .timer-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 8px;
+    padding: 6px 12px;
+    margin-top: 6px;
+    width: fit-content;
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  }
+  .timer-box svg {
+    width: 14px;
+    height: 14px;
+    fill: #111b21;
+    animation: pulse 1.2s infinite;
+  }
+  .timer-text {
+    font-size: 13px;
+    font-weight: 800;
+    color: #111b21;
+    font-family: monospace;
+    letter-spacing: 0.05em;
+  }
+  
+  /* ══════ CONTAINER REELS / SHORTS VERTICAL (9:16) ══════ */
+  .reels-container{
+    position:relative;
+    width:100%;
+    height:100%;
+    flex:1;
+    background:#000;
+    display:flex;
+    flex-direction:column;
+    min-height:0;
+  }
+  .reels-video-wrap{
+    position:relative;
+    width:100%;
+    flex:1;
+    min-height:0;
+  }
+  .reels-video-wrap iframe, .reels-video-wrap wistia-player {
+    width:100%;
+    height:100%;
+    border:0;
+    object-fit:cover;
+  }
+  .reels-cta-bar{
+    position:relative;
+    flex-shrink:0;
+    width:100%;
+    padding:12px 16px max(12px, env(safe-area-inset-bottom));
+    background:#000;
+    z-index:20;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .reels-cta-bar .btn-decision{
+    padding:13px 16px;
+    font-size:13px;
+  }
+
+  .vip-box{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    background:#ffffff;
+    border:1.5px solid rgba(255,255,255,.15);
+    border-radius:14px;
+    padding:12px;
+  }
+  .vip-box-msg{
+    font-family:'Inter',sans-serif;
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--ink);
+    text-align:center;
+    line-height:1.4;
+    padding:0 4px 2px;
+  }
+
+  /* CTAs SOBRE O VÍDEO */
+  .btn-decision{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    width:100%;
+    padding:16px 20px;
+    border-radius:12px;
+    font-size:14px;
+    font-weight:700;
+    text-decoration:none;
+    transition:all .2s ease;
+    cursor:pointer;
+    border:none;
+    text-align:center;
+    line-height:1.35;
+  }
+  .btn-decision-insta{
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color:#fff;
+    box-shadow:0 6px 18px rgba(220, 39, 67, 0.25);
+  }
+  .btn-decision-insta:hover{
+    opacity: 0.95;
+    transform:translateY(-2px);
+  }
+  .btn-decision-group{
+    background:#25D366;
+    color:#fff;
+    box-shadow:0 6px 18px rgba(37,211,102,.3);
+  }
+  .btn-decision-group:hover{
+    background:#1ebe5a;
+    transform:translateY(-2px);
+  }
+  .btn-decision-consult{
+    background:#111b21;
+    color:#fff;
+    border:1.5px solid rgba(255,255,255,.1);
+    box-shadow:0 6px 18px rgba(0,0,0,.15);
+  }
+  .btn-decision-consult:hover{
+    background:#1f2c34;
+    transform:translateY(-2px);
+  }
+
+  .quiz-back{
+    background:none;border:none;color:var(--muted-ink);font-size:13px;
+    cursor:pointer;margin-top:16px;display:inline-flex;align-items:center;gap:5px;
+    font-weight:500;
+  }
+  .quiz-back:hover{color:var(--ink);}
+
+  @media(max-width:480px){
+    .quiz-overlay{padding:0;}
+    .quiz-box.reels-mode{
+      max-width:100%;
+      height:100%;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     HERO — única seção da página (sem scroll)
+══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-top">
+        <div class="hero-badge">
+          <img src="https://lp.iaatende.click/wp-content/uploads/2026/08/WhatsApp-Image-2026-07-04-at-6.52.54-PM.jpeg" alt="Marcos Henrique">
+          <span>Marcos Henrique<em>Criador do Funil de AutoQualificação para Nutricionistas</em></span>
+        </div>
+
+        <div class="authority-bar">
+          <span class="auth-item">
+            <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+            +R$3M anúncios
+          </span>
+          <span class="auth-item">
+            <svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94A5.01 5.01 0 0011 17.9V20H8v2h8v-2h-3v-2.1c1.73-.37 3.07-1.79 3.39-3.56C18.79 14.1 21 11.8 21 9V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
+            +10 anos
+          </span>
+          <span class="auth-item">
+            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+            +100 clientes
+          </span>
+        </div>
+
+        <div class="headline-box">
+          <div class="live-tag">
+            <span class="live-dot"></span>
+            AULA EXCLUSIVA REVELA...
+          </div>
+          <h1>O Funil de Autoqualificação™: como transformar UM ÚNICO CONTEÚDO em atração, qualificação e conversão de pacientes usando o Instagram e o WhatsApp, todas as semanas, sem ser refém de postar todos os dias.</h1>
+        </div>
+      </div>
+
+      <div class="hero-body">
+        <p class="hero-lead">Depois de mais de 10 anos de mercado, mais de 3 milhões de reais em anúncios investidos e mais de 100 clientes atendidos...</p>
+
+        <p class="hero-sub">Eu vou compartilhar com você o que realmente funciona para atrair pacientes através do Instagram e da internet.</p>
+
+        <p class="hero-sub highlight-box">Se você é um Nutricionista que já produz conteúdo para o Instagram, já fez anúncios, mas os resultados ainda não são o que você gostaria, essa aula é pra você.</p>
+
+        <p class="hero-sub">Você vai conhecer o meu sistema de marketing e o funil de autoqualificação para atrair pacientes qualificados e comprometidos.</p>
+      </div>
+
+      <div class="hero-cta-box">
+        <div class="hero-cta-wrap">
+          <span class="hero-urgency">Aula exclusiva liberada por pouco tempo.</span>
+          <a href="#" class="btn btn-full btn-attention" onclick="return openQuiz(event)">
+            Quero Assistir a Aula Agora →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot-note">© 2026 Marcos Henrique · Todos os direitos reservados</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     QUIZ & VIDEO POPUP
+══════════════════════════════════════════ -->
+<div class="quiz-overlay" id="quizOverlay" onclick="handleOverlayClick(event)">
+  <div class="quiz-box" id="quizBox" role="dialog" aria-modal="true" aria-label="Quiz de qualificação">
+    <div class="quiz-head">
+      <button class="quiz-close" id="quizCloseBtn" onclick="handleCloseClick()" aria-label="Fechar">✕</button>
+      <div class="quiz-notice" id="quizNotice">Responda essa pesquisa rápida pra liberar a aula.</div>
+      <div class="quiz-step-label" id="quizStepLabel">Pergunta 1 de 5</div>
+      <div class="quiz-progress-track"><div class="quiz-progress-fill" id="quizProgressFill"></div></div>
+      <!-- TIMER ESTILO NETFLIX (Visível na fase do Vídeo) -->
+      <div class="timer-box" id="videoTimerBox" style="display:none;">
+        <svg viewBox="0 0 24 24"><path d="M12 20c4.41 0 8-3.59 8-8s-3.59-8-8-8-8 3.59-8 8 3.59 8 8 8zm0-18c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm1 5h-2v6l5.2 3.1.8-1.3-4-2.4V7z"/></svg>
+        <span class="timer-text" id="videoTimerText">10:00</span>
+      </div>
+    </div>
+    <div class="quiz-body" id="quizBody"><!-- Conteúdo dinâmico em JS --></div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════
+   CONFIGURAÇÕES E URLS
+══════════════════════════════════════════ */
+var WISTIA_MEDIA_ID = "3m1v2y4a7b"; 
+var LINK_INSTAGRAM_NUTRI = "https://www.instagram.com/marcoshenrique.me/"; 
+var LINK_GRUPO_VIP = "https://chat.whatsapp.com/BTEUk6qy1Nu4P6zzo3K5yn";
+var LINK_WHATSAPP_NUTRI = "https://api.whatsapp.com/send?phone=5521965944207&text=Ol%C3%A1%20Marcos%20Henrique!%20Vi%20teu%20v%C3%ADdeo%20e%20gostaria%20de%20me%20aplicar%20para%20a%20sua%20mentoria...%20Podemos%20conversar%20agora%3F";
+var N8N_WEBHOOK_URL = "{{URL_WEBHOOK_N8N}}";
+
+var quizAnswers = {};
+var quizStep = 1;
+var QUIZ_TOTAL = 3;
+var currentPhase = 'quiz'; // 'quiz', 'video'
+
+// Variáveis do Player do YouTube
+var wistiaVideo = null;
+var videoPlaybackTime = 0; // Armazena a minutagem
+var countdownTimer = null;
+var instagramTimer = null;
+var instagramUnlocked = false;
+var vipBoxTimer = null;
+var vipBoxUnlocked = false;
+var totalSecondsLeft = 600; // 10 Minutos
+
+var quizSteps = [
+  {
+    type: "choice",
+    field: "situacao",
+    question: "Você já possui consultório/atendimento ativo em nutrição?",
+    options: ["Sim, já atendo pacientes", "Iniciando agora os atendimentos", "Ainda estudando / recém-formada"]
+  },
+  {
+    type: "multi_choice",
+    field: "tentativas",
+    question: "Qual o seu maior desafio atual para atrair pacientes?",
+    options: [
+      "Posto no Instagram mas não vendo consultas",
+      "Não sei como fazer anúncios pagos (Tráfego Pago)",
+      "Dependo muito de indicação e boca a boca",
+      "Não tenho constância na produção de conteúdo",
+      "Outro"
+    ]
+  },
+  {
+    type: "choice",
+    field: "tempo_atuacao",
+    question: "Há quanto tempo você é nutricionista?",
+    options: ["Mais de 3 anos", "2 anos", "1 ano", "Acabei de me formar"]
+  }
+];
+
+function getFormattedTodayDate(){
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0');
+  var yyyy = today.getFullYear();
+  return dd + '/' + mm + '/' + yyyy;
+}
+
+function openQuiz(e){
+  if(e) e.preventDefault();
+  quizStep = 1;
+  quizAnswers = {};
+  currentPhase = 'quiz';
+  videoPlaybackTime = 0;
+  instagramUnlocked = false;
+  vipBoxUnlocked = false;
+  if(instagramTimer) clearTimeout(instagramTimer);
+  if(vipBoxTimer) clearTimeout(vipBoxTimer);
+  document.getElementById('quizCloseBtn').style.display = 'block';
+  document.getElementById('videoTimerBox').style.display = 'none';
+  document.getElementById('quizBox').classList.remove('reels-mode');
+  renderQuizStep();
+  document.getElementById('quizOverlay').classList.add('active');
+  if(typeof fbq!=='undefined'){
+    fbq('trackCustom','QuizStart');
+  }
+  return false;
+}
+
+function closeQuiz(){
+  saveVideoTime();
+  document.getElementById('quizOverlay').classList.remove('active');
+  document.getElementById('quizBox').classList.remove('reels-mode');
+  document.getElementById('videoTimerBox').style.display = 'none';
+  if(countdownTimer) clearInterval(countdownTimer);
+  if(instagramTimer) clearTimeout(instagramTimer);
+  if(vipBoxTimer) clearTimeout(vipBoxTimer);
+  currentPhase = 'quiz';
+}
+
+function handleOverlayClick(e){
+  if(currentPhase === 'video') return; // não permite fechar/voltar durante o vídeo
+  if(e.target === document.getElementById('quizOverlay')){
+    closeQuiz();
+  }
+}
+
+function handleCloseClick(){
+  if(currentPhase === 'video') return; // não permite fechar/voltar durante o vídeo
+  closeQuiz();
+}
+
+function renderQuizStep(){
+  currentPhase = 'quiz';
+  document.getElementById('quizCloseBtn').style.display = 'block';
+  document.getElementById('videoTimerBox').style.display = 'none';
+  
+  var body = document.getElementById('quizBody');
+  var label = document.getElementById('quizStepLabel');
+  var fill = document.getElementById('quizProgressFill');
+  var notice = document.getElementById('quizNotice');
+
+  notice.textContent = "Responda essa pesquisa rápida pra liberar a aula.";
+  var data = quizSteps[quizStep-1];
+  label.textContent = "Pergunta " + quizStep + " de " + QUIZ_TOTAL;
+  fill.style.width = ((quizStep-1)/QUIZ_TOTAL*100) + "%";
+
+  var html = 
+    '<div class="quiz-question-box">' +
+      '<div class="quiz-question-eyebrow">Pergunta ' + quizStep + '</div>' +
+      '<div class="quiz-question">'+data.question+'</div>' +
+    '</div>';
+
+  if(data.type === "choice"){
+    html += '<div class="quiz-options">';
+    data.options.forEach(function(opt, i){
+      html += '<button class="quiz-opt" onclick="selectQuizOption('+i+')">'+opt+'</button>';
+    });
+    html += '</div>';
+  } else if(data.type === "multi_choice"){
+    html += '<div class="quiz-options" id="quizMultiOptions">';
+    data.options.forEach(function(opt, i){
+      html += '<button type="button" class="quiz-opt quiz-opt-multi" data-index="'+i+'" onclick="toggleQuizOption('+i+')">'+
+                '<span class="quiz-opt-check"></span><span>'+opt+'</span>'+
+              '</button>';
+    });
+    html += '</div>';
+    html += '<button class="btn btn-full" style="margin-top:14px; padding:17px 30px;" onclick="submitQuizMulti()">Continuar →</button>';
+  }
+
+  if(quizStep > 1){
+    html += '<button class="quiz-back" onclick="quizBack()">← Voltar</button>';
+  }
+
+  body.innerHTML = html;
+}
+
+function selectQuizOption(index){
+  var data = quizSteps[quizStep-1];
+  quizAnswers[data.field] = data.options[index];
+  advanceQuiz();
+}
+
+function toggleQuizOption(index){
+  var btn = document.querySelector('.quiz-opt-multi[data-index="'+index+'"]');
+  btn.classList.toggle('selected');
+}
+
+function submitQuizMulti(){
+  var data = quizSteps[quizStep-1];
+  var selected = [];
+  document.querySelectorAll('.quiz-opt-multi.selected').forEach(function(btn){
+    selected.push(data.options[parseInt(btn.getAttribute('data-index'), 10)]);
+  });
+  quizAnswers[data.field] = selected;
+  advanceQuiz();
+}
+
+function advanceQuiz(){
+  quizStep++;
+  if(quizStep > QUIZ_TOTAL){
+    sendDataToN8N();
+    renderVideoStep();
+  } else {
+    renderQuizStep();
+  }
+  document.getElementById('quizBox').scrollTop = 0;
+}
+
+function quizBack(){
+  if(quizStep > 1){
+    quizStep--;
+    renderQuizStep();
+  }
+}
+
+/* ══════════════════════════════════════════
+   ETAPA DO VÍDEO VERTICAL (REELS / NETFLIX TIMER / CTAs PROGRESSIVOS)
+══════════════════════════════════════════ */
+function renderVideoStep(){
+  currentPhase = 'video';
+  
+  var label = document.getElementById('quizStepLabel');
+  var fill = document.getElementById('quizProgressFill');
+  var notice = document.getElementById('quizNotice');
+  var body = document.getElementById('quizBody');
+  var box = document.getElementById('quizBox');
+  var closeBtn = document.getElementById('quizCloseBtn');
+  var timerBox = document.getElementById('videoTimerBox');
+
+  closeBtn.style.display = 'none';
+  timerBox.style.display = 'flex';
+
+  // Modo Reels Fullscreen
+  box.classList.add('reels-mode');
+
+  notice.textContent = "Essa aula fica indisponível em " + getFormattedTodayDate();
+  label.textContent = "Assista a aula exclusiva abaixo";
+  fill.style.width = "100%";
+
+  body.innerHTML = 
+    '<div class="reels-container">' +
+      '<div class="reels-video-wrap"><wistia-player media-id="'+WISTIA_MEDIA_ID+'" seo="false" aspect="1.7777777777777777"></wistia-player></div>' +
+      '<div class="reels-cta-bar" id="reelsCtaBar">' +
+        '<!-- CTA 1: INSTAGRAM (visível desde o início) -->' +
+        '<a href="'+LINK_INSTAGRAM_NUTRI+'" target="_blank" rel="noopener noreferrer" id="btnInstagram" class="btn-decision btn-decision-insta btn-attention" style="display:none;" onclick="trackFinalChoice(\'Instagram\')">' +
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="#fff" style="flex-shrink:0;">' +
+            '<path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>' +
+          '</svg>' +
+          '<span>Quero seguir o Marcos Henrique no Instagram</span>' +
+        '</a>' +
+        '<!-- MENSAGEM + CAIXINHA COM CTA 2 e CTA 3 -->' +
+        '<div class="vip-box" id="vipBox" style="display:none;">' +
+          '<div class="vip-box-msg">Clique no botão abaixo para entrar no grupo VIP de pré-vendas da mentoria.</div>' +
+          '<!-- CTA 2: GRUPO VIP WHATSAPP -->' +
+          '<a href="'+LINK_GRUPO_VIP+'" target="_blank" rel="noopener noreferrer" id="btnGrupoVip" class="btn-decision btn-decision-group btn-attention" onclick="trackFinalChoice(\'GrupoVIP\')">' +
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="20" height="20" fill="#fff" style="flex-shrink:0;">' +
+              '<path d="M24 4C12.95 4 4 12.95 4 24c0 3.55.93 6.88 2.56 9.77L4 44l10.56-2.52A19.86 19.86 0 0 0 24 44c11.05 0 20-8.95 20-20S35.05 4 24 4zm0 36c-3.14 0-6.1-.82-8.66-2.26l-.62-.37-6.27 1.5 1.53-6.1-.4-.64A15.93 15.93 0 0 1 8 24c0-8.82 7.18-16 16-16s16 7.18 16 16-7.18 16-16 16zm8.77-11.76c-.48-.24-2.84-1.4-3.28-1.56-.44-.16-.76-.24-1.08.24-.32.48-1.24 1.56-1.52 1.88-.28.32-.56.36-1.04.12-.48-.24-2.03-.75-3.87-2.39-1.43-1.28-2.4-2.85-2.68-3.33-.28-.48-.03-.74.21-.98.22-.22.48-.56.72-.84.24-.28.32-.48.48-.8.16-.32.08-.6-.04-.84-.12-.24-1.08-2.6-1.48-3.56-.38-.92-.78-.8-1.08-.82-.28-.01-.6-.01-.92-.01-.32 0-.84.12-1.28.6-.44.48-1.68 1.64-1.68 4s1.72 4.64 1.96 4.96c.24.32 3.38 5.16 8.2 7.24 1.15.5 2.04.8 2.74 1.02 1.15.36 2.2.31 3.02.19.92-.14 2.84-1.16 3.24-2.28.4-1.12.4-2.08.28-2.28-.12-.2-.44-.32-.92-.56z"/>' +
+            '</svg>' +
+            '<span>Clique para entrar no grupo de pré-vendas da mentoria</span>' +
+          '</a>' +
+          '<!-- CTA 3: MENTORIA -->' +
+          '<a href="'+LINK_WHATSAPP_NUTRI+'" target="_blank" rel="noopener noreferrer" id="btnMentoria" class="btn-decision btn-decision-consult btn-attention" onclick="trackFinalChoice(\'Mentoria\')">' +
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="20" height="20" fill="var(--green)" style="flex-shrink:0;">' +
+              '<path d="M24 4C12.95 4 4 12.95 4 24c0 3.55.93 6.88 2.56 9.77L4 44l10.56-2.52A19.86 19.86 0 0 0 24 44c11.05 0 20-8.95 20-20S35.05 4 24 4zm0 36c-3.14 0-6.1-.82-8.66-2.26l-.62-.37-6.27 1.5 1.53-6.1-.4-.64A15.93 15.93 0 0 1 8 24c0-8.82 7.18-16 16-16s16 7.18 16 16-7.18 16-16 16zm8.77-11.76c-.48-.24-2.84-1.4-3.28-1.56-.44-.16-.76-.24-1.08.24-.32.48-1.24 1.56-1.52 1.88-.28.32-.56.36-1.04.12-.48-.24-2.03-.75-3.87-2.39-1.43-1.28-2.4-2.85-2.68-3.33-.28-.48-.03-.74.21-.98.22-.22.48-.56.72-.84.24-.28.32-.48.48-.8.16-.32.08-.6-.04-.84-.12-.24-1.08-2.6-1.48-3.56-.38-.92-.78-.8-1.08-.82-.28-.01-.6-.01-.92-.01-.32 0-.84.12-1.28.6-.44.48-1.68 1.64-1.68 4s1.72 4.64 1.96 4.96c.24.32 3.38 5.16 8.2 7.24 1.15.5 2.04.8 2.74 1.02 1.15.36 2.2.31 3.02.19.92-.14 2.84-1.16 3.24-2.28.4-1.12.4-2.08.28-2.28-.12-.2-.44-.32-.92-.56z"/>' +
+            '</svg>' +
+            '<span>Conversar sobre a consultoria individual</span>' +
+          '</a>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+
+  // Se o botão do Instagram já havia sido liberado nesta sessão, reexibe direto
+  if(instagramUnlocked){ var ig = document.getElementById('btnInstagram'); if(ig) ig.style.display = 'flex'; }
+
+  // Inicia ou retoma o Player do Wistia
+  initWistiaPlayer(videoPlaybackTime);
+
+  // Se a vip-box já havia sido liberada nesta sessão, reexibe direto
+  if(vipBoxUnlocked){ var vb = document.getElementById('vipBox'); if(vb) vb.style.display = 'flex'; }
+
+  // Libera o CTA do Instagram após 1 minuto de aula
+  if(!instagramUnlocked && !instagramTimer){
+    instagramTimer = setTimeout(function(){
+      instagramUnlocked = true;
+      var ig = document.getElementById('btnInstagram');
+      if(ig) ig.style.display = 'flex';
+    }, 60000); // 1 minuto
+  }
+
+  // Libera a caixinha do Grupo VIP + Mentoria após 9 minutos de aula
+  if(!vipBoxUnlocked && !vipBoxTimer){
+    vipBoxTimer = setTimeout(function(){
+      vipBoxUnlocked = true;
+      var vb = document.getElementById('vipBox');
+      if(vb) vb.style.display = 'flex';
+    }, 540000); // 9 minutos
+  }
+
+  // Inicia o cronômetro Netflix de 10 minutos se não estiver rodando
+  startNetflixTimer();
+
+  if(typeof fbq!=='undefined'){
+    fbq('trackCustom', 'QuizCompleted_VideoView');
+  }
+}
+
+function initWistiaPlayer(startTime){
+  window._wq = window._wq || [];
+  window._wq.push({
+    id: WISTIA_MEDIA_ID,
+    onReady: function(video){
+      wistiaVideo = video;
+      if(startTime){
+        try { video.time(startTime); } catch(e){}
+      }
+      video.play();
+    }
+  });
+}
+
+function saveVideoTime(){
+  if(wistiaVideo && typeof wistiaVideo.time === 'function'){
+    try {
+      videoPlaybackTime = wistiaVideo.time();
+    } catch(e){}
+  }
+}
+
+function startNetflixTimer(){
+  if(countdownTimer) return;
+  var timerText = document.getElementById('videoTimerText');
+  
+  countdownTimer = setInterval(function(){
+    totalSecondsLeft--;
+    if(totalSecondsLeft <= 0){
+      clearInterval(countdownTimer);
+      totalSecondsLeft = 0;
+    }
+    var m = Math.floor(totalSecondsLeft / 60);
+    var s = totalSecondsLeft % 60;
+    if(timerText){
+      timerText.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    }
+  }, 1000);
+}
+
+function sendDataToN8N(){
+  var eventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
+
+  if(typeof fbq!=='undefined'){
+    fbq('track', 'Lead', {content_name: 'Quiz Completo - Marcos Henrique'}, {eventID: eventId});
+  }
+
+  fetch(N8N_WEBHOOK_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      situacao: quizAnswers.situacao,
+      tentativas: quizAnswers.tentativas,
+      tempo_atuacao: quizAnswers.tempo_atuacao,
+      event_id: eventId,
+      event_source_url: window.location.href
+    })
+  });
+}
+
+function trackFinalChoice(opcao){
+  if(typeof fbq!=='undefined'){
+    fbq('trackCustom', 'EscolhaEtapaFinal', {opcao: opcao});
+  }
+}
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape' && currentPhase !== 'video'){
+    closeQuiz();
+  }
+});
+</script>
+
+</body>
+</html>
