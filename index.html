@@ -493,9 +493,11 @@ src="https://www.facebook.com/tr?id={{SEU_PIXEL_ID}}&ev=PageView&noscript=1"
     font-family:'Inter',sans-serif;
     font-size:14px;
     color:var(--muted-ink);
-    max-width:320px;
-    line-height:1.45;
+    max-width:360px;
+    line-height:1.5;
     margin-bottom:18px;
+    min-height:42px;
+    transition:opacity .2s ease;
   }
   .loading-bar-track{
     width:100%;
@@ -941,24 +943,42 @@ function renderLoadingStep(){
         '<svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>' +
       '</div>' +
       '<div class="loading-title">Obrigado pelas respostas!</div>' +
-      '<div class="loading-sub">Enviando suas informações e redirecionando para a aula exclusiva...</div>' +
+      '<div class="loading-sub" id="loadingSub">Enviando suas informações...</div>' +
       '<div class="loading-bar-track"><div class="loading-bar-fill" id="loadingBarFill"></div></div>' +
       '<div class="loading-percent" id="loadingPercent">0%</div>' +
     '</div>';
 
+  var loadingMessages = [
+    { at: 0,  text: "Enviando suas informações..." },
+    { at: 15, text: "Seu contexto é interessante." },
+    { at: 38, text: "Não faz sentido viver mais enfrentando esse problema." },
+    { at: 62, text: "Em alguns segundos você vai conhecer a solução definitiva." },
+    { at: 88, text: "Aguarde..." }
+  ];
+  var msgIndex = 0;
+
   var pct = 0;
   var barFill = document.getElementById('loadingBarFill');
   var percentText = document.getElementById('loadingPercent');
+  var subText = document.getElementById('loadingSub');
+
   var loadingInterval = setInterval(function(){
-    pct += Math.floor(Math.random() * 12) + 6; // incrementos irregulares p/ parecer natural
+    pct += Math.floor(Math.random() * 3) + 2; // incrementos pequenos p/ durar mais tempo (~7-8s)
     if(pct >= 100){
       pct = 100;
       clearInterval(loadingInterval);
-      setTimeout(renderVideoStep, 400);
+      setTimeout(renderVideoStep, 700);
     }
+
+    // Atualiza a mensagem conforme o progresso avança
+    while(msgIndex < loadingMessages.length - 1 && pct >= loadingMessages[msgIndex + 1].at){
+      msgIndex++;
+      if(subText) subText.textContent = loadingMessages[msgIndex].text;
+    }
+
     if(barFill) barFill.style.width = pct + '%';
     if(percentText) percentText.textContent = pct + '%';
-  }, 220);
+  }, 280);
 }
 
 /* ══════════════════════════════════════════
