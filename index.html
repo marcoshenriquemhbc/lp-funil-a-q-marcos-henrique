@@ -459,6 +459,66 @@ src="https://www.facebook.com/tr?id={{SEU_PIXEL_ID}}&ev=PageView&noscript=1"
     font-family: monospace;
     letter-spacing: 0.05em;
   }
+
+  /* ══════ TELA DE LOADING / CONFIRMAÇÃO FINAL DO QUIZ ══════ */
+  .loading-screen{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:50px 10px 20px;
+    gap:10px;
+  }
+  .loading-check{
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:var(--green-subtle);
+    border:2px solid var(--green);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:6px;
+  }
+  .loading-check svg{width:28px;height:28px;fill:var(--green);}
+  .loading-title{
+    font-family:'Inter',sans-serif;
+    font-size:18px;
+    font-weight:800;
+    color:var(--ink);
+    margin-bottom:2px;
+  }
+  .loading-sub{
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    color:var(--muted-ink);
+    max-width:320px;
+    line-height:1.45;
+    margin-bottom:18px;
+  }
+  .loading-bar-track{
+    width:100%;
+    max-width:320px;
+    height:10px;
+    background:#e4e8eb;
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .loading-bar-fill{
+    height:100%;
+    width:0%;
+    background:var(--green);
+    border-radius:10px;
+    transition:width .15s linear;
+  }
+  .loading-percent{
+    font-family:'Inter',sans-serif;
+    font-size:13px;
+    font-weight:800;
+    color:var(--green);
+    margin-top:10px;
+  }
   
   /* ══════ CONTAINER REELS / SHORTS VERTICAL (9:16) ══════ */
   .reels-container{
@@ -674,7 +734,7 @@ var N8N_WEBHOOK_URL = "{{URL_WEBHOOK_N8N}}";
 
 var quizAnswers = {};
 var quizStep = 1;
-var QUIZ_TOTAL = 3;
+var QUIZ_TOTAL = 4;
 var currentPhase = 'quiz'; // 'quiz', 'video'
 
 // Variáveis do Player do YouTube
@@ -697,7 +757,7 @@ var quizSteps = [
   {
     type: "multi_choice",
     field: "tentativas",
-    question: "Qual o seu maior desafio atual para atrair pacientes?",
+    question: "Quais são os seus maiores desafios atualmente para atrair novos pacientes?",
     options: [
       "Posto no Instagram mas não vendo consultas",
       "Não sei como fazer anúncios pagos (Tráfego Pago)",
@@ -705,6 +765,12 @@ var quizSteps = [
       "Não tenho constância na produção de conteúdo",
       "Outro"
     ]
+  },
+  {
+    type: "choice",
+    field: "tempo_desafio",
+    question: "Há quanto tempo você enfrenta esses desafios?",
+    options: ["Menos de 3 meses", "3 a 6 meses", "6 meses a 1 ano", "Mais de 1 ano"]
   },
   {
     type: "choice",
@@ -755,14 +821,14 @@ function closeQuiz(){
 }
 
 function handleOverlayClick(e){
-  if(currentPhase === 'video') return; // não permite fechar/voltar durante o vídeo
+  if(currentPhase === 'video' || currentPhase === 'loading') return; // não permite fechar/voltar durante o vídeo ou o loading
   if(e.target === document.getElementById('quizOverlay')){
     closeQuiz();
   }
 }
 
 function handleCloseClick(){
-  if(currentPhase === 'video') return; // não permite fechar/voltar durante o vídeo
+  if(currentPhase === 'video' || currentPhase === 'loading') return; // não permite fechar/voltar durante o vídeo ou o loading
   closeQuiz();
 }
 
@@ -836,7 +902,7 @@ function advanceQuiz(){
   quizStep++;
   if(quizStep > QUIZ_TOTAL){
     sendDataToN8N();
-    renderVideoStep();
+    renderLoadingStep();
   } else {
     renderQuizStep();
   }
@@ -848,6 +914,51 @@ function quizBack(){
     quizStep--;
     renderQuizStep();
   }
+}
+
+/* ══════════════════════════════════════════
+   TELA DE LOADING / CONFIRMAÇÃO FINAL
+══════════════════════════════════════════ */
+function renderLoadingStep(){
+  currentPhase = 'loading';
+
+  var body = document.getElementById('quizBody');
+  var label = document.getElementById('quizStepLabel');
+  var fill = document.getElementById('quizProgressFill');
+  var notice = document.getElementById('quizNotice');
+  var closeBtn = document.getElementById('quizCloseBtn');
+  var timerBox = document.getElementById('videoTimerBox');
+
+  closeBtn.style.display = 'none';
+  timerBox.style.display = 'none';
+  notice.textContent = "Aguarde um instante...";
+  label.textContent = "Concluído";
+  fill.style.width = "100%";
+
+  body.innerHTML =
+    '<div class="loading-screen">' +
+      '<div class="loading-check">' +
+        '<svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>' +
+      '</div>' +
+      '<div class="loading-title">Obrigado pelas respostas!</div>' +
+      '<div class="loading-sub">Enviando suas informações e redirecionando para a aula exclusiva...</div>' +
+      '<div class="loading-bar-track"><div class="loading-bar-fill" id="loadingBarFill"></div></div>' +
+      '<div class="loading-percent" id="loadingPercent">0%</div>' +
+    '</div>';
+
+  var pct = 0;
+  var barFill = document.getElementById('loadingBarFill');
+  var percentText = document.getElementById('loadingPercent');
+  var loadingInterval = setInterval(function(){
+    pct += Math.floor(Math.random() * 12) + 6; // incrementos irregulares p/ parecer natural
+    if(pct >= 100){
+      pct = 100;
+      clearInterval(loadingInterval);
+      setTimeout(renderVideoStep, 400);
+    }
+    if(barFill) barFill.style.width = pct + '%';
+    if(percentText) percentText.textContent = pct + '%';
+  }, 220);
 }
 
 /* ══════════════════════════════════════════
@@ -994,6 +1105,7 @@ function sendDataToN8N(){
     body: JSON.stringify({
       situacao: quizAnswers.situacao,
       tentativas: quizAnswers.tentativas,
+      tempo_desafio: quizAnswers.tempo_desafio,
       tempo_atuacao: quizAnswers.tempo_atuacao,
       event_id: eventId,
       event_source_url: window.location.href
@@ -1008,7 +1120,7 @@ function trackFinalChoice(opcao){
 }
 
 document.addEventListener('keydown', function(e){
-  if(e.key === 'Escape' && currentPhase !== 'video'){
+  if(e.key === 'Escape' && currentPhase !== 'video' && currentPhase !== 'loading'){
     closeQuiz();
   }
 });
