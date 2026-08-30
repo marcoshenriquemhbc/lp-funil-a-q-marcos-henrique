@@ -1090,7 +1090,7 @@ function renderVideoStep(){
   body.innerHTML = 
     '<div class="reels-container">' +
       '<div class="reels-video-wrap">' +
-        '<wistia-player media-id="'+WISTIA_MEDIA_ID+'" seo="false" aspect="1.7777777777777777" muted></wistia-player>' +
+        '<wistia-player id="wistiaPlayerEl" media-id="'+WISTIA_MEDIA_ID+'" seo="false" aspect="1.7777777777777777" muted></wistia-player>' +
         '<button type="button" class="unmute-btn" id="unmuteBtn" onclick="unmuteVideo()">' +
           '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>' +
           '<span>Ativar som</span>' +
@@ -1186,42 +1186,53 @@ var viewContentFired = false; // trava pra disparar o ViewContent só uma vez po
 var LEAD_THRESHOLD_SECONDS = 300; // 5 minutos assistidos
 
 function initWistiaPlayer(startTime){
-  window._wq = window._wq || [];
-  window._wq.push({
-    id: WISTIA_MEDIA_ID,
-    onReady: function(video){
-      wistiaVideo = video;
-      if(startTime){
-        try { video.time(startTime); } catch(e){}
+  var player = document.getElementById('wistiaPlayerEl');
+  if(!player) return;
+  wistiaVideo = player;
+
+  function bindPlayerEvents(){
+    player.addEventListener('play', function(){
+      if(!viewContentFired){
+        viewContentFired = true;
+        var vcEventId = 'vc_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
+        if(typeof fbq!=='undefined'){
+          fbq('track', 'ViewContent', {content_name: 'Quiz Completo - Marcos Henrique'}, {eventID: vcEventId});
+        }
+        sendEventToN8N('ViewContent', vcEventId);
       }
-      video.bind('play', function(){
-        if(!viewContentFired){
-          viewContentFired = true;
-          var vcEventId = 'vc_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
-          if(typeof fbq!=='undefined'){
-            fbq('track', 'ViewContent', {content_name: 'Quiz Completo - Marcos Henrique'}, {eventID: vcEventId});
-          }
-          sendEventToN8N('ViewContent', vcEventId);
+    });
+
+    player.addEventListener('second-change', function(e){
+      var currentTime = e.detail ? e.detail.second : 0;
+      if(!leadFired && currentTime >= LEAD_THRESHOLD_SECONDS){
+        leadFired = true;
+        if(typeof fbq!=='undefined'){
+          fbq('track', 'Lead', {content_name: 'Quiz Completo - Marcos Henrique'}, {eventID: leadEventId});
         }
-      });
-      video.bind('secondchange', function(currentTime){
-        if(!leadFired && currentTime >= LEAD_THRESHOLD_SECONDS){
-          leadFired = true;
-          if(typeof fbq!=='undefined'){
-            fbq('track', 'Lead', {content_name: 'Quiz Completo - Marcos Henrique'}, {eventID: leadEventId});
-          }
-          sendEventToN8N('Lead', leadEventId);
-        }
-      });
-      video.play();
+        sendEventToN8N('Lead', leadEventId);
+      }
+    });
+  }
+
+  function startPlayback(){
+    bindPlayerEvents();
+    if(startTime){
+      try { player.currentTime = startTime; } catch(e){}
     }
-  });
+    try { player.play(); } catch(e){}
+  }
+
+  if(window.customElements && customElements.whenDefined){
+    customElements.whenDefined('wistia-player').then(startPlayback);
+  } else {
+    startPlayback();
+  }
 }
 
 function saveVideoTime(){
-  if(wistiaVideo && typeof wistiaVideo.time === 'function'){
+  if(wistiaVideo && typeof wistiaVideo.currentTime === 'number'){
     try {
-      videoPlaybackTime = wistiaVideo.time();
+      videoPlaybackTime = wistiaVideo.currentTime;
     } catch(e){}
   }
 }
