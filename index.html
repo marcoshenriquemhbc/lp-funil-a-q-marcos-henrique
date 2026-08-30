@@ -1069,7 +1069,7 @@ function renderVideoStep(){
 
   body.innerHTML = 
     '<div class="reels-container">' +
-      '<div class="reels-video-wrap"><wistia-player media-id="'+WISTIA_MEDIA_ID+'" seo="false" aspect="1.7777777777777777"></wistia-player></div>' +
+      '<div class="reels-video-wrap"><wistia-player id="wistiaPlayerEl" media-id="'+WISTIA_MEDIA_ID+'" seo="false" aspect="1.7777777777777777"></wistia-player></div>' +
       '<div class="reels-cta-bar" id="reelsCtaBar">' +
         '<!-- CTA 1: INSTAGRAM (visível desde o início) -->' +
         '<a href="'+LINK_INSTAGRAM_NUTRI+'" target="_blank" rel="noopener noreferrer" id="btnInstagram" class="btn-decision btn-decision-insta btn-attention" style="display:none;" onclick="trackFinalChoice(\'Instagram\')">' +
@@ -1159,33 +1159,35 @@ var viewContentFired = false; // trava pra disparar o ViewContent só uma vez po
 var leadFired = false; // trava pra disparar o Lead só uma vez por sessão (agora só via clique nos botões finais)
 
 function initWistiaPlayer(startTime){
-  window._wq = window._wq || [];
-  window._wq.push({
-    id: WISTIA_MEDIA_ID,
-    onReady: function(video){
-      wistiaVideo = video;
-      if(startTime){
-        try { video.time(startTime); } catch(e){}
+  // API nova do Wistia (Web Component <wistia-player>): pega o elemento direto
+  // no DOM e escuta eventos nativos com addEventListener — a fila window._wq
+  // é da API antiga (iframe embed) e não é mais respeitada por este player.
+  var player = document.getElementById('wistiaPlayerEl');
+  if(!player) return;
+  wistiaVideo = player;
+
+  if(startTime){
+    try { player.currentTime = startTime; } catch(e){}
+  }
+
+  player.addEventListener('play', function(){
+    if(!viewContentFired){
+      viewContentFired = true;
+      var vcEventId = 'vc_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
+      if(typeof fbq!=='undefined'){
+        fbq('track', 'ViewContent', {content_name: 'Quiz Completo - Marcos Henrique'}, {eventID: vcEventId});
       }
-      video.bind('play', function(){
-        if(!viewContentFired){
-          viewContentFired = true;
-          var vcEventId = 'vc_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
-          if(typeof fbq!=='undefined'){
-            fbq('track', 'ViewContent', {content_name: 'Quiz Completo - Marcos Henrique'}, {eventID: vcEventId});
-          }
-          sendEventToN8N('ViewContent', vcEventId);
-        }
-      });
-      video.play();
+      sendEventToN8N('ViewContent', vcEventId);
     }
   });
+
+  try { player.play(); } catch(e){}
 }
 
 function saveVideoTime(){
-  if(wistiaVideo && typeof wistiaVideo.time === 'function'){
+  if(wistiaVideo){
     try {
-      videoPlaybackTime = wistiaVideo.time();
+      videoPlaybackTime = wistiaVideo.currentTime;
     } catch(e){}
   }
 }
