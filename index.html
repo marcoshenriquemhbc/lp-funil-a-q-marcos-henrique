@@ -1221,20 +1221,10 @@ function startNetflixTimer(){
 var leadEventId = null; // gerado no fim do quiz, usado no disparo do Lead quando o vídeo começar
 
 function sendDataToN8N(){
+  // Gera o event_id que será usado depois no disparo do Lead (quando o vídeo atingir 5 min)
   leadEventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
-
-  fetch(N8N_WEBHOOK_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      situacao: quizAnswers.situacao,
-      tentativas: quizAnswers.tentativas,
-      tempo_desafio: quizAnswers.tempo_desafio,
-      tempo_atuacao: quizAnswers.tempo_atuacao,
-      event_id: leadEventId,
-      event_source_url: window.location.href
-    })
-  });
+  // Respostas do quiz não são mais enviadas ao webhook — só os eventos de
+  // rastreamento (ViewContent/Lead) chegam nele, via sendEventToN8N().
 }
 
 function trackFinalChoice(opcao){
