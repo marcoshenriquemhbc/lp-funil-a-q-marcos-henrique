@@ -607,6 +607,26 @@ var capturedFbp = ensureFbp();
     border:0;
     object-fit:cover;
   }
+  .unmute-btn{
+    position:absolute;
+    top:16px;
+    right:16px;
+    z-index:15;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:rgba(0,0,0,.6);
+    border:1.5px solid rgba(255,255,255,.4);
+    border-radius:24px;
+    padding:8px 14px;
+    color:#fff;
+    font-family:'Inter',sans-serif;
+    font-size:12.5px;
+    font-weight:700;
+    cursor:pointer;
+    backdrop-filter:blur(4px);
+  }
+  .unmute-btn svg{width:16px;height:16px;fill:#fff;flex-shrink:0;}
   .reels-cta-bar{
     position:relative;
     flex-shrink:0;
@@ -1069,7 +1089,13 @@ function renderVideoStep(){
 
   body.innerHTML = 
     '<div class="reels-container">' +
-      '<div class="reels-video-wrap"><wistia-player media-id="'+WISTIA_MEDIA_ID+'" seo="false" aspect="1.7777777777777777"></wistia-player></div>' +
+      '<div class="reels-video-wrap">' +
+        '<wistia-player media-id="'+WISTIA_MEDIA_ID+'" seo="false" aspect="1.7777777777777777" muted></wistia-player>' +
+        '<button type="button" class="unmute-btn" id="unmuteBtn" onclick="unmuteVideo()">' +
+          '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>' +
+          '<span>Ativar som</span>' +
+        '</button>' +
+      '</div>' +
       '<div class="reels-cta-bar" id="reelsCtaBar">' +
         '<!-- CTA 1: INSTAGRAM (visível desde o início) -->' +
         '<a href="'+LINK_INSTAGRAM_NUTRI+'" target="_blank" rel="noopener noreferrer" id="btnInstagram" class="btn-decision btn-decision-insta btn-attention" style="display:none;" onclick="trackFinalChoice(\'Instagram\')">' +
@@ -1198,6 +1224,14 @@ function saveVideoTime(){
       videoPlaybackTime = wistiaVideo.time();
     } catch(e){}
   }
+}
+
+function unmuteVideo(){
+  if(wistiaVideo && typeof wistiaVideo.unmute === 'function'){
+    try { wistiaVideo.unmute(); } catch(e){}
+  }
+  var btn = document.getElementById('unmuteBtn');
+  if(btn) btn.style.display = 'none';
 }
 
 function startNetflixTimer(){
