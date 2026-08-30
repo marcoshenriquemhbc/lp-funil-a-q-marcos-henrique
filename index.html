@@ -801,7 +801,7 @@ var quizStep = 1;
 var QUIZ_TOTAL = 4;
 var currentPhase = 'quiz'; // 'quiz', 'video'
 
-// Variáveis do Player do YouTube
+// Variáveis do Player do Wistia
 var wistiaVideo = null;
 var videoPlaybackTime = 0; // Armazena a minutagem
 var countdownTimer = null;
@@ -1155,9 +1155,8 @@ function sendEventToN8N(eventName, eventId){
   }).catch(function(){ /* falha silenciosa: não bloqueia a experiência do usuário */ });
 }
 
-var leadFired = false; // trava pra disparar o Lead só uma vez por sessão
 var viewContentFired = false; // trava pra disparar o ViewContent só uma vez por sessão
-var LEAD_THRESHOLD_SECONDS = 300; // 5 minutos assistidos
+var leadFired = false; // trava pra disparar o Lead só uma vez por sessão (agora só via clique nos botões finais)
 
 function initWistiaPlayer(startTime){
   window._wq = window._wq || [];
@@ -1176,15 +1175,6 @@ function initWistiaPlayer(startTime){
             fbq('track', 'ViewContent', {content_name: 'Quiz Completo - Marcos Henrique'}, {eventID: vcEventId});
           }
           sendEventToN8N('ViewContent', vcEventId);
-        }
-      });
-      video.bind('secondchange', function(currentTime){
-        if(!leadFired && currentTime >= LEAD_THRESHOLD_SECONDS){
-          leadFired = true;
-          if(typeof fbq!=='undefined'){
-            fbq('track', 'Lead', {content_name: 'Quiz Completo - Marcos Henrique'}, {eventID: leadEventId});
-          }
-          sendEventToN8N('Lead', leadEventId);
         }
       });
       video.play();
@@ -1218,19 +1208,31 @@ function startNetflixTimer(){
   }, 1000);
 }
 
-var leadEventId = null; // gerado no fim do quiz, usado no disparo do Lead quando o vídeo começar
+var leadEventId = null; // gerado no fim do quiz, usado no disparo do Lead quando um dos botões finais é clicado
 
 function sendDataToN8N(){
-  // Gera o event_id que será usado depois no disparo do Lead (quando o vídeo atingir 5 min)
+  // Gera o event_id que será usado depois no disparo do Lead (quando um dos botões finais for clicado)
   leadEventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
   // Respostas do quiz não são mais enviadas ao webhook — só os eventos de
   // rastreamento (ViewContent/Lead) chegam nele, via sendEventToN8N().
+}
+
+// Dispara o Lead uma única vez por sessão, seja qual for o botão que a pessoa clicar primeiro
+function fireLeadEvent(){
+  if(leadFired) return; // já disparou — não duplica
+  leadFired = true;
+  if(typeof fbq!=='undefined'){
+    fbq('track', 'Lead', {content_name: 'Quiz Completo - Marcos Henrique'}, {eventID: leadEventId});
+  }
+  sendEventToN8N('Lead', leadEventId);
 }
 
 function trackFinalChoice(opcao){
   if(typeof fbq!=='undefined'){
     fbq('trackCustom', 'EscolhaEtapaFinal', {opcao: opcao});
   }
+  // Lead conta em qualquer um dos 3 botões finais (Instagram, GrupoVIP, Mentoria)
+  fireLeadEvent();
 }
 
 document.addEventListener('keydown', function(e){
