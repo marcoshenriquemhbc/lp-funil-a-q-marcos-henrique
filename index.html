@@ -23,6 +23,68 @@ src="https://www.facebook.com/tr?id=682535077399333&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 
+<!-- ══════════════════════════════════════════
+     CAPTURA DE fbclid, _fbp, _fbc E UTMs
+     Roda assim que a página carrega, guarda em variáveis
+     globais (capturedFbc, capturedFbp) para uso no envio
+     dos eventos ao n8n / Conversions API.
+══════════════════════════════════════════ -->
+<script>
+function getCookie(name) {
+  var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  return match ? decodeURIComponent(match[2]) : null;
+}
+
+function setCookie(name, value, days) {
+  var expires = "";
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/; SameSite=Lax";
+}
+
+function getFbclidFromUrl() {
+  var params = new URLSearchParams(window.location.search);
+  return params.get('fbclid');
+}
+
+function ensureFbc() {
+  var existingFbc = getCookie('_fbc');
+  if (existingFbc) return existingFbc;
+
+  var fbclid = getFbclidFromUrl();
+  if (fbclid) {
+    var fbc = 'fb.1.' + Date.now() + '.' + fbclid;
+    setCookie('_fbc', fbc, 90);
+    return fbc;
+  }
+
+  return null;
+}
+
+function ensureFbp() {
+  // Não recriamos _fbp manualmente — só lemos o que o Pixel já criou.
+  return getCookie('_fbp');
+}
+
+function getUtmParams() {
+  var params = new URLSearchParams(window.location.search);
+  return {
+    utm_source: params.get('utm_source'),
+    utm_campaign: params.get('utm_campaign'),
+    utm_medium: params.get('utm_medium'),
+    utm_content: params.get('utm_content'),
+    fbclid: params.get('fbclid')
+  };
+}
+
+// Captura já no carregamento da página, antes de qualquer navegação interna do quiz
+var capturedFbc = ensureFbc();
+var capturedFbp = ensureFbp();
+</script>
+
 <!-- Wistia Player -->
 <script src="https://fast.wistia.com/player.js" async></script>
 <script src="https://fast.wistia.com/embed/m42f90bnro.js" async type="module"></script>
@@ -732,7 +794,7 @@ var WISTIA_MEDIA_ID = "m42f90bnro";
 var LINK_INSTAGRAM_NUTRI = "https://www.instagram.com/marcoshenrique.me/"; 
 var LINK_GRUPO_VIP = "https://chat.whatsapp.com/BTEUk6qy1Nu4P6zzo3K5yn";
 var LINK_WHATSAPP_NUTRI = "https://api.whatsapp.com/send?phone=5521965944207&text=Ol%C3%A1%20Marcos%20Henrique!%20Vi%20teu%20v%C3%ADdeo%20e%20gostaria%20de%20me%20aplicar%20para%20a%20sua%20mentoria...%20Podemos%20conversar%20agora%3F";
-var N8N_WEBHOOK_URL = "{{URL_WEBHOOK_N8N}}";
+var N8N_WEBHOOK_URL = "https://n8n.iaatende.click/webhook/funil-a-q-01";
 
 var quizAnswers = {};
 var quizStep = 1;
@@ -1072,6 +1134,27 @@ function renderVideoStep(){
   }
 }
 
+// Envia o evento ao n8n (CAPI server-side), com os mesmos dados usados no fbq() client-side
+function sendEventToN8N(eventName, eventId){
+  var utms = getUtmParams();
+  fetch(N8N_WEBHOOK_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      event_name: eventName,
+      event_id: eventId,
+      event_source_url: window.location.href,
+      fbp: capturedFbp,
+      fbc: capturedFbc,
+      user_agent: navigator.userAgent,
+      utm_source: utms.utm_source,
+      utm_campaign: utms.utm_campaign,
+      utm_medium: utms.utm_medium,
+      utm_content: utms.utm_content
+    })
+  }).catch(function(){ /* falha silenciosa: não bloqueia a experiência do usuário */ });
+}
+
 var leadFired = false; // trava pra disparar o Lead só uma vez por sessão
 var viewContentFired = false; // trava pra disparar o ViewContent só uma vez por sessão
 var LEAD_THRESHOLD_SECONDS = 300; // 5 minutos assistidos
@@ -1088,9 +1171,11 @@ function initWistiaPlayer(startTime){
       video.bind('play', function(){
         if(!viewContentFired){
           viewContentFired = true;
+          var vcEventId = 'vc_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
           if(typeof fbq!=='undefined'){
-            fbq('track', 'ViewContent', {content_name: 'Quiz Completo - Marcos Henrique'});
+            fbq('track', 'ViewContent', {content_name: 'Quiz Completo - Marcos Henrique'}, {eventID: vcEventId});
           }
+          sendEventToN8N('ViewContent', vcEventId);
         }
       });
       video.bind('secondchange', function(currentTime){
@@ -1099,6 +1184,7 @@ function initWistiaPlayer(startTime){
           if(typeof fbq!=='undefined'){
             fbq('track', 'Lead', {content_name: 'Quiz Completo - Marcos Henrique'}, {eventID: leadEventId});
           }
+          sendEventToN8N('Lead', leadEventId);
         }
       });
       video.play();
