@@ -1102,6 +1102,9 @@ function renderVideoStep(){
   // Se o botão do Instagram já havia sido liberado nesta sessão, reexibe direto
   if(instagramUnlocked){ var ig = document.getElementById('btnInstagram'); if(ig) ig.style.display = 'flex'; }
 
+  // ── EVENTO LEAD: dispara aqui, assim que o vídeo é carregado na tela ──
+  fireLeadEvent();
+
   // Inicia ou retoma o Player do Wistia
   initWistiaPlayer(videoPlaybackTime);
 
@@ -1156,7 +1159,7 @@ function sendEventToN8N(eventName, eventId){
 }
 
 var viewContentFired = false; // trava pra disparar o ViewContent só uma vez por sessão
-var leadFired = false; // trava pra disparar o Lead só uma vez por sessão (agora só via clique nos botões finais)
+var leadFired = false; // trava pra disparar o Lead só uma vez por sessão (agora disparado no carregamento do vídeo)
 
 function initWistiaPlayer(startTime){
   // API nova do Wistia (Web Component <wistia-player>): pega o elemento direto
@@ -1210,16 +1213,16 @@ function startNetflixTimer(){
   }, 1000);
 }
 
-var leadEventId = null; // gerado no fim do quiz, usado no disparo do Lead quando um dos botões finais é clicado
+var leadEventId = null; // gerado no fim do quiz, usado no disparo do Lead quando o vídeo é carregado
 
 function sendDataToN8N(){
-  // Gera o event_id que será usado depois no disparo do Lead (quando um dos botões finais for clicado)
+  // Gera o event_id que será usado depois no disparo do Lead (quando o vídeo carregar, em renderVideoStep)
   leadEventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
   // Respostas do quiz não são mais enviadas ao webhook — só os eventos de
   // rastreamento (ViewContent/Lead) chegam nele, via sendEventToN8N().
 }
 
-// Dispara o Lead uma única vez por sessão, seja qual for o botão que a pessoa clicar primeiro
+// Dispara o Lead uma única vez por sessão — chamado assim que o vídeo é carregado (renderVideoStep)
 function fireLeadEvent(){
   if(leadFired) return; // já disparou — não duplica
   leadFired = true;
@@ -1233,8 +1236,6 @@ function trackFinalChoice(opcao){
   if(typeof fbq!=='undefined'){
     fbq('trackCustom', 'EscolhaEtapaFinal', {opcao: opcao});
   }
-  // Lead conta em qualquer um dos 3 botões finais (Instagram, GrupoVIP, Mentoria)
-  fireLeadEvent();
 }
 
 document.addEventListener('keydown', function(e){
