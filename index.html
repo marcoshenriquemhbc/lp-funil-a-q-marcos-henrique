@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Marcos Henrique | Aula Exclusiva — Funil de AutoQualificação para Nutricionistas</title>
+<title>Marcos Henrique | Como Atrair e Fidelizar Pacientes Todo Mês pelo Instagram</title>
 
 <!-- Meta Pixel Code -->
 <script>
@@ -65,7 +65,7 @@ function ensureFbc() {
 }
 
 function ensureFbp() {
-  // Não recriamos _fbp manualmente — só lemos o que o Pixel já criou.
+  // Não recriamos _fbp manualmente - só lemos o que o Pixel já criou.
   return getCookie('_fbp');
 }
 
@@ -708,7 +708,7 @@ var capturedFbp = ensureFbp();
 <body>
 
 <!-- ══════════════════════════════════════════
-     HERO — única seção da página (sem scroll)
+     HERO - única seção da página (sem scroll)
 ══════════════════════════════════════════ -->
 <section class="hero">
   <div class="container">
@@ -716,7 +716,7 @@ var capturedFbp = ensureFbp();
       <div class="hero-top">
         <div class="hero-badge">
           <img src="https://raw.githubusercontent.com/marcoshenriquemhbc/lp-funil-a-q-marcos-henrique/refs/heads/main/WhatsApp%20Image%202026-06-29%20at%204.08.53%20PM.jpeg" alt="Marcos Henrique">
-          <span>Marcos Henrique<em>Criador do Funil de AutoQualificação para Nutricionistas</em></span>
+          <span>Marcos Henrique<em>Criador do Funil de Autoqualificação para Nutricionistas</em></span>
         </div>
 
         <div class="authority-bar">
@@ -737,20 +737,20 @@ var capturedFbp = ensureFbp();
         <div class="headline-box">
           <div class="live-tag">
             <span class="live-dot"></span>
-            AULA EXCLUSIVA REVELA...
+            PARA NUTRICIONISTAS CANSADAS DE DEPENDER DE INDICAÇÃO
           </div>
-          <h1>O Funil de Autoqualificação™: como transformar UM ÚNICO CONTEÚDO em atração, qualificação e conversão de pacientes usando o Instagram e o WhatsApp, todas as semanas, sem ser refém de postar todos os dias.</h1>
+          <h1>Como atrair e fidelizar pacientes todo mês pelo Instagram e virar a nutri de referência da sua cidade - usando o Funil de Autoqualificação™, sem precisar atender (nem postar) todos os dias.</h1>
         </div>
       </div>
 
       <div class="hero-body">
-        <p class="hero-lead">Depois de mais de 10 anos de mercado, mais de 3 milhões de reais em anúncios investidos e mais de 100 clientes atendidos...</p>
+        <p class="hero-lead">Depois de mais de 10 anos de mercado, mais de 3 milhões de reais em anúncios investidos e mais de 100 clientes atendidos, eu descobri o método mais eficaz que transforma um desconhecido em paciente de acompanhamento que te paga todo mês.</p>
 
-        <p class="hero-sub">Eu vou compartilhar com você o que realmente funciona para atrair pacientes através do Instagram e da internet.</p>
+        <p class="hero-sub">E o melhor: sem você precisar recomeçar a agenda do zero toda semana.</p>
 
-        <p class="hero-sub highlight-box">Se você é um Nutricionista que já produz conteúdo para o Instagram, já fez anúncios, mas os resultados ainda não são o que você gostaria, essa aula é pra você.</p>
+        <p class="hero-sub highlight-box">Você não precisa apenas de mais seguidores. Você precisa de pacientes qualificados, com previsibilidade - e é isso que o Funil de Autoqualificação™ entrega.</p>
 
-        <p class="hero-sub">Você vai conhecer o meu sistema de marketing e o funil de autoqualificação para atrair pacientes qualificados e comprometidos.</p>
+        <p class="hero-sub">Se hoje você ainda depende de indicação e boca a boca pra preencher a agenda, essa aula é pra você.</p>
       </div>
 
       <div class="hero-cta-box">
@@ -1163,7 +1163,7 @@ var leadFired = false; // trava pra disparar o Lead só uma vez por sessão (ago
 
 function initWistiaPlayer(startTime){
   // API nova do Wistia (Web Component <wistia-player>): pega o elemento direto
-  // no DOM e escuta eventos nativos com addEventListener — a fila window._wq
+  // no DOM e escuta eventos nativos com addEventListener - a fila window._wq
   // é da API antiga (iframe embed) e não é mais respeitada por este player.
   var player = document.getElementById('wistiaPlayerEl');
   if(!player) return;
@@ -1218,13 +1218,13 @@ var leadEventId = null; // gerado no fim do quiz, usado no disparo do Lead quand
 function sendDataToN8N(){
   // Gera o event_id que será usado depois no disparo do Lead (quando o vídeo carregar, em renderVideoStep)
   leadEventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
-  // Respostas do quiz não são mais enviadas ao webhook — só os eventos de
+  // Respostas do quiz não são mais enviadas ao webhook - só os eventos de
   // rastreamento (ViewContent/Lead) chegam nele, via sendEventToN8N().
 }
 
-// Dispara o Lead uma única vez por sessão — chamado assim que o vídeo é carregado (renderVideoStep)
+// Dispara o Lead uma única vez por sessão - chamado assim que o vídeo é carregado (renderVideoStep)
 function fireLeadEvent(){
-  if(leadFired) return; // já disparou — não duplica
+  if(leadFired) return; // já disparou - não duplica
   leadFired = true;
   if(typeof fbq!=='undefined'){
     fbq('track', 'Lead', {content_name: 'Quiz Completo - Marcos Henrique'}, {eventID: leadEventId});
